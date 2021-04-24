@@ -1,3 +1,4 @@
+import 'package:DevQuiz/challenge/challenge_page.dart';
 import 'package:DevQuiz/core/app_colors.dart';
 import 'package:DevQuiz/home/home_controller.dart';
 import 'package:DevQuiz/home/home_state.dart';
@@ -16,14 +17,14 @@ class _HomePageState extends State<HomePage> {
 
   @override
   void initState() {
-    super.initState();
-
     controller.loadUser();
     controller.loadQuizzes();
 
     controller.stateNotifier.addListener(() {
       setState(() {});
     });
+
+    super.initState();
   }
 
   @override
@@ -56,8 +57,16 @@ class _HomePageState extends State<HomePage> {
                       children: controller.quizzes!
                           .map((quiz) => QuizCardWidget(
                                 title: quiz.title,
-                                textCompleted: "${quiz.questionAwnsered}/${quiz.questions.length}",
-                                percentCompleted: quiz.questionAwnsered /quiz.questions.length,
+                                textCompleted:"${quiz.questionAwnsered}/${quiz.questions.length}",
+                                percentCompleted: quiz.questionAwnsered / quiz.questions.length,
+                                onTap: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(builder: (context) => ChallengePage(
+                                      questions: quiz.questions,
+                                    )),
+                                  );
+                                },
                               ))
                           .toList()))
             ],
@@ -66,7 +75,8 @@ class _HomePageState extends State<HomePage> {
       );
     } else {
       return Container(
-        child: CircularProgressIndicator(valueColor: AlwaysStoppedAnimation<Color>(AppColors.darkGreen)),
+        child: CircularProgressIndicator(
+            valueColor: AlwaysStoppedAnimation<Color>(AppColors.darkGreen)),
       );
     }
   }
