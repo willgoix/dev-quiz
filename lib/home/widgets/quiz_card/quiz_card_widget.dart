@@ -26,6 +26,7 @@ class QuizCardWidget extends StatelessWidget {
       onTap: onTap,
       child: Container(
         padding: EdgeInsets.all(16),
+        constraints: BoxConstraints(maxHeight: 122),
         decoration: BoxDecoration(
           border: Border.fromBorderSide(BorderSide(color: AppColors.border)),
           borderRadius: BorderRadius.circular(10),
