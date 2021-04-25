@@ -2,7 +2,7 @@
   {
     "title": "Gerenciamento de Estados",
     "image": "data",
-    "questionAwnsered": 0,
+    "questionAwnsered": 1,
     "level": "facil",
     "questions": [
       {
@@ -82,7 +82,7 @@
   {
     "title": "Componentes do Flutter",
     "image": "blocks",
-    "questionAwnsered": 0,
+    "questionAwnsered": 3,
     "level": "facil",
     "questions": [
       {

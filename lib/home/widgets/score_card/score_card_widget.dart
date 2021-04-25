@@ -39,7 +39,7 @@ class ScoreCardWidget extends StatelessWidget {
                         style: AppTextStyles.heading,
                       ),
                       Text(
-                        "Complete os desafios e avance em conhecimento",
+                        percent >= 50 ? "Seu conhecimento está sendo aprimorado!" : "Complete os desafios e avance em conhecimento",
                         style: AppTextStyles.body,
                       )
                     ],
