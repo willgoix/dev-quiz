@@ -2,13 +2,16 @@ import 'package:DevQuiz/challenge/challenge_controller.dart';
 import 'package:DevQuiz/challenge/widgets/next_button/next_button_widget.dart';
 import 'package:DevQuiz/challenge/widgets/question_indicator/question_indicator_widget.dart';
 import 'package:DevQuiz/challenge/widgets/quiz/quiz_widget.dart';
+import 'package:DevQuiz/result/result_page.dart';
 import 'package:DevQuiz/shared/models/question_model.dart';
 import 'package:flutter/material.dart';
 
 class ChallengePage extends StatefulWidget {
+  final String title;
   final List<QuestionModel> questions;
 
-  const ChallengePage({Key? key, required this.questions}) : super(key: key);
+  const ChallengePage({Key? key, required this.title, required this.questions})
+      : super(key: key);
 
   @override
   _ChallengePageState createState() => _ChallengePageState();
@@ -25,6 +28,14 @@ class _ChallengePageState extends State<ChallengePage> {
         curve: Curves.linear,
       );
     }
+  }
+
+  void onChoose(bool value) {
+    if (value) {
+      controller.rightsCount++;
+    }
+
+    nextPage();
   }
 
   @override
@@ -63,7 +74,7 @@ class _ChallengePageState extends State<ChallengePage> {
         children: widget.questions
             .map((question) => QuizWidget(
                   question: question,
-                  onChange: nextPage,
+                  onChoose: onChoose,
                 ))
             .toList(),
       ),
@@ -88,7 +99,16 @@ class _ChallengePageState extends State<ChallengePage> {
                     child: NextButtonWidget.green(
                       label: "Confirmar",
                       onTap: () {
-                        Navigator.pop(context);
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => ResultPage(
+                              title: widget.title,
+                              length: widget.questions.length,
+                              result: controller.rightsCount,
+                            ),
+                          ),
+                        );
                       },
                     ),
                   )
